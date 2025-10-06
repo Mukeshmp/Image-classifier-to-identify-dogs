@@ -62,5 +62,40 @@ def print_results(results_dic, results_stats_dic, model,
     Returns:
            None - simply printing results.
     """    
-    None
+    print(f"\n\n*** Results Summary for CNN Model Architecture: {model.upper()} ***")
+    
+    # Print counts
+    print(f"Number of Images: {results_stats_dic['n_images']}")
+    print(f"Number of Dog Images: {results_stats_dic['n_dogs_img']}")
+    print(f"Number of \"Not-a\" Dog Images: {results_stats_dic['n_notdogs_img']}\n")
+    
+    # Print percentages
+    print("Percentage Statistics:")
+    for key in results_stats_dic:
+        if key.startswith('pct'):
+            print(f"{key}: {results_stats_dic[key]:.1f}%")
+    
+    # Print incorrectly classified dogs (Dog vs Not-a-Dog)
+    if print_incorrect_dogs:
+        total_correct = results_stats_dic['n_correct_dogs'] + results_stats_dic['n_correct_notdogs']
+        if total_correct != results_stats_dic['n_images']:
+            print("\nIncorrectly Classified Dog/Not-Dog Images:")
+            for key, value in results_dic.items():
+                pet_is_dog = value[3]
+                classifier_is_dog = value[4]
+                # One of them is dog, but the other is not
+                if pet_is_dog + classifier_is_dog == 1:
+                    print(f"Pet Image: {value[0]}  |  Classifier: {value[1]}")
+    
+    # Print incorrectly classified dog breeds
+    if print_incorrect_breed:
+        if results_stats_dic['n_correct_dogs'] != results_stats_dic['n_correct_breed']:
+            print("\nIncorrectly Classified Dog Breeds:")
+            for key, value in results_dic.items():
+                pet_is_dog = value[3]
+                classifier_is_dog = value[4]
+                match = value[2]
+                # Both are dogs but labels don't match
+                if pet_is_dog == 1 and classifier_is_dog == 1 and match == 0:
+                    print(f"Pet Image: {value[0]}  |  Classifier: {value[1]}")
                 

@@ -1,3 +1,16 @@
+
+# PROGRAMMER: Mukesh Paul
+# DATE CREATED: 05-10-2025                                  
+# REVISED DATE: 05-10-2025 
+# PURPOSE: Create a function that calculates the results statistics from the 
+#          results dictionary. This function computes counts and percentages 
+#          of correctly classified dog images, correctly classified non-dog 
+#          images, and correctly classified dog breeds. The computed statistics 
+#          are stored in a results statistics dictionary, where each statistic’s 
+#          name is the key and its value is the corresponding numeric result. 
+#          The function helps evaluate the overall performance of the image 
+#          classification model used in the project.
+
 def calculates_results_stats(results_dic):
     """
     Calculates statistics of the results of the run and puts statistics in a 
